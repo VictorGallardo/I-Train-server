@@ -1,7 +1,6 @@
 import { Router, Response } from 'express'
 import { validateToken } from '../middlewares/authentication';
-import { List } from '../models/list.model';
-import { Item } from '../models/item.model';
+import { List, IList } from '../models/list.model';
 
 
 const listRoutes = Router();
@@ -13,7 +12,7 @@ listRoutes.get('/', [validateToken], async (req: any, res: Response) => {
 
     let page = Number(req.query.page) || 1;
     let skip = page - 1;
-    skip = skip * 10;
+    skip = skip * 15;
 
     const body = req.body;
     body.user = req.user._id;
@@ -22,7 +21,7 @@ listRoutes.get('/', [validateToken], async (req: any, res: Response) => {
         .find(body)           // Busca por id user
         .sort({ _id: -1 })    // Ordena
         .skip(skip)           // Paginación
-        .limit(10)            // Muestra solo 10    
+        .limit(15)            // Muestra solo 10    
         .exec()               // Ejecuta
 
     // Respuesta    
@@ -138,6 +137,28 @@ listRoutes.delete('/delete/:listid', (req: any, res: Response) => {
     });
 
 });
+
+// // // Insertar id en array lists: de usuarios (EN PRUEBAS)
+// listRoutes.post('/addItems/:iditem/:idlist', (req: any, res: Response) => {
+
+//     // extraer la info del post
+//     const iditem = req.params.iditem;
+//     const idlist = req.params.idlist;
+
+//     List.findOne({ _id: iditem }, (err: any, listDB: IList) => {
+
+//         listDB.items.push(idlist)
+//         listDB.save();
+
+//         res.json({
+//             ok: true,
+//             idlist
+
+
+//         });
+
+//     });
+// });
 
 
 export default listRoutes;

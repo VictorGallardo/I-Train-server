@@ -49,7 +49,7 @@ listSchema.pre<IList>('save', function (next) {
 
 
 // Interface del schema
-interface IList extends Document {
+export interface IList extends Document {
 
     created: Date;
     completed: boolean;
