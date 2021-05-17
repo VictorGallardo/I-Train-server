@@ -1,6 +1,6 @@
 import { Router, Response } from 'express'
 import { validateToken } from '../middlewares/authentication';
-import { List, IList } from '../models/list.model';
+import { List } from '../models/list.model';
 
 
 const listRoutes = Router();
@@ -138,27 +138,6 @@ listRoutes.delete('/delete/:listid', (req: any, res: Response) => {
 
 });
 
-// // // Insertar id en array lists: de usuarios (EN PRUEBAS)
-// listRoutes.post('/addItems/:iditem/:idlist', (req: any, res: Response) => {
-
-//     // extraer la info del post
-//     const iditem = req.params.iditem;
-//     const idlist = req.params.idlist;
-
-//     List.findOne({ _id: iditem }, (err: any, listDB: IList) => {
-
-//         listDB.items.push(idlist)
-//         listDB.save();
-
-//         res.json({
-//             ok: true,
-//             idlist
-
-
-//         });
-
-//     });
-// });
 
 
 export default listRoutes;
