@@ -161,7 +161,7 @@ userRoutes.get('/all', async (req: any, res: Response) => {
 // // Insertar id en array lists: de usuarios (EN PRUEBAS)
 // userRoutes.post('/addlist/:iduser/:idlist', (req: Request, res: Response) => {
 
-//     extraer la info del post
+//     // extraer la info del post
 //     const iduser = req.params.iduser;
 //     const idlist = req.params.idlist;
 

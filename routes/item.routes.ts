@@ -181,7 +181,4 @@ itemRoutes.post('/update/:listid/:itemid', (req: any, res: Response) => {
 });
 
 
-
-
-
 export default itemRoutes;
