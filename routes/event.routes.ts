@@ -79,6 +79,7 @@ eventRoutes.delete('/delete/:eventid', (req: any, res: Response) => {
 
 
 // Actualizar items
+
 eventRoutes.post('/update/:eventid', (req: any, res: Response) => {
 
     const event = {
@@ -101,7 +102,7 @@ eventRoutes.post('/update/:eventid', (req: any, res: Response) => {
 
         res.json({
             ok: true,
-            item: 'Evento actualizado con éxito'
+            event: 'Evento actualizado con éxito'
         });
 
 
