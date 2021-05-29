@@ -1,7 +1,6 @@
 import { Router, Response } from 'express'
 import { validateToken } from '../middlewares/authentication';
 import { List } from '../models/list.model';
-import { Item } from '../models/item.model';
 
 
 const listRoutes = Router();
