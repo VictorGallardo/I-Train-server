@@ -3,13 +3,11 @@ import { Router, Response } from 'express'
 import { validateToken } from '../middlewares/authentication';
 
 
-
 const eventRoutes = Router();
 
 // Obtener eventos
 
 eventRoutes.get('/', [validateToken], async (req: any, res: Response) => {
-
 
     const body = req.body;
     body.user = req.user._id;
@@ -28,12 +26,12 @@ eventRoutes.get('/', [validateToken], async (req: any, res: Response) => {
 
 });
 
+
 // Crear eventos
 
 eventRoutes.post('/', [validateToken], (req: any, res: Response) => {
 
     // Insercción
-    // Con el body parser obtenemos toda la información que la persona manda
     const body = req.body;
     body.user = req.user._id;
     body._id = req.body._id
@@ -41,13 +39,7 @@ eventRoutes.post('/', [validateToken], (req: any, res: Response) => {
     // Grabar en la base de datos
     Event.create(body).then(async eventDB => {
 
-        // Aqui el registro ya se ha creado en la DB
-        // ---------------------------------------------------------------
-        // Esto es para que llene el usuario con toda su info
-        // El -password no muestra la contraseña
         await eventDB.populate('user', '-password').execPopulate();
-        // listDB.items.push({ lists: 'kskdkks' })
-        // await listDB.save();
 
         res.json({
             ok: true,
@@ -58,6 +50,63 @@ eventRoutes.post('/', [validateToken], (req: any, res: Response) => {
     }).catch(err => { // Si sucede algún error
         res.json(err)
     });
+});
+
+
+// Metodo para borrar eventos por su ID
+
+eventRoutes.delete('/delete/:eventid', (req: any, res: Response) => {
+
+    Event.findByIdAndRemove(req.params.eventid, req.body, (err, eventDB) => {
+
+        if (err) throw err;
+
+        if (!eventDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe un evento con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            event: 'Evento borrado con éxito'
+        });
+
+    });
+
+});
+
+
+// Actualizar items
+eventRoutes.post('/update/:eventid', (req: any, res: Response) => {
+
+    const event = {
+        title: req.body.title || req.event.title,
+        description: req.body.description || req.event.description,
+        startTime: req.body.startTime || req.event.startTime,
+        endTime: req.body.endTime || req.event.endTime
+    }
+
+    Event.findByIdAndUpdate(req.params.eventid, event, { new: true }, (err, eventDB) => {
+
+        if (err) throw err;
+
+        if (!eventDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe un evento con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            item: 'Evento actualizado con éxito'
+        });
+
+
+    });
+
 });
 
 export default eventRoutes;
