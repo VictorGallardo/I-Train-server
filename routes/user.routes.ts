@@ -128,6 +128,37 @@ userRoutes.post('/update', validateToken, (req: any, res: Response) => {
 
 });
 
+// Actualizar usuarios en I-ADMIN
+
+userRoutes.post('/update/:userid', (req: any, res: Response) => {
+
+    const user = {
+        name: req.body.name || req.user.name,
+        email: req.body.email || req.user.email,
+        avatar: req.body.avatar || req.user.avatar
+    }
+
+    User.findByIdAndUpdate(req.params.userid, user, { new: true }, (err, userDB) => {
+
+        if (err) throw err;
+
+        if (!userDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe un usuario con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            user: 'Useario actualizado con éxito'
+        });
+
+
+    });
+
+});
+
 userRoutes.get('/', [validateToken], (req: any, res: Response) => {
     const user = req.user;
 
