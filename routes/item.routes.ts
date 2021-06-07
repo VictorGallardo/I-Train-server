@@ -93,27 +93,9 @@ itemRoutes.post('/:listid', (req: any, res: Response) => {
 
 });
 
-// Método POST para crear items sin idLista
-
-itemRoutes.post('/', (req: any, res: Response) => {
-
-    const body = req.body;
-
-    // Grabar en DB
-    Item.create(body).then(async itemDB => {
-
-        res.json({
-            ok: true,
-            item: itemDB
-        });
-
-    }).catch(err => {
-        res.json(err)
-    });
-
-});
 
 // Metodo para borrar items por su ID
+
 itemRoutes.delete('/delete/:itemid', (req: any, res: Response) => {
 
 

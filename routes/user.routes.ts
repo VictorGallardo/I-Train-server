@@ -54,7 +54,7 @@ userRoutes.post('/login', (req: Request, res: Response) => {
 });
 
 
-// Creaar un usuario
+// Crear un usuario
 userRoutes.post('/create', (req: Request, res: Response) => {
 
     // extraer la info del post
@@ -156,6 +156,32 @@ userRoutes.get('/all', async (req: any, res: Response) => {
 
 });
 
+
+// Metodo para borrar usuario por su ID
+
+userRoutes.delete('/delete/:userid', (req: any, res: Response) => {
+
+
+    User.findByIdAndRemove(req.params.userid, req.body, (err, userDB) => {
+
+        if (err) throw err;
+
+        if (!userDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe un usuario con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            user: 'Usuario borrado con éxito'
+        });
+
+
+    });
+
+});
 
 
 // // Insertar id en array lists: de usuarios (EN PRUEBAS)
