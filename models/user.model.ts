@@ -24,7 +24,6 @@ const userSchema: Schema<any> = new Schema({
 
     role: {
         type: String,
-        default: 'basic'
 
     },
 
