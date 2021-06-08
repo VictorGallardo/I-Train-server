@@ -63,6 +63,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
         name: req.body.name,
         email: req.body.email,
         password: bycrypt.hashSync(req.body.password, 10),
+        role: req.body.role,
         avatar: req.body.avatar
     }
 
@@ -72,6 +73,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
             _id: userDB._id,
             name: userDB.name,
             email: userDB.email,
+            role: userDB.role,
             avatar: userDB.avatar
         });
 
@@ -97,6 +99,8 @@ userRoutes.post('/update', validateToken, (req: any, res: Response) => {
     const user = {
         name: req.body.name || req.user.name,
         email: req.body.email || req.user.email,
+        password: req.body.password || req.user.password,
+        role: req.body.role || req.user.role,
         avatar: req.body.avatar || req.user.avatar
     }
 
@@ -115,6 +119,8 @@ userRoutes.post('/update', validateToken, (req: any, res: Response) => {
             _id: userDB._id,
             name: userDB.name,
             email: userDB.email,
+            password: userDB.password,
+            role: userDB.role,
             avatar: userDB.avatar
         });
 
@@ -135,6 +141,8 @@ userRoutes.post('/update/:userid', (req: any, res: Response) => {
     const user = {
         name: req.body.name || req.user.name,
         email: req.body.email || req.user.email,
+        password: req.body.password || req.user.password,
+        role: req.body.role || req.user.role,
         avatar: req.body.avatar || req.user.avatar
     }
 
