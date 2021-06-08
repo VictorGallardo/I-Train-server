@@ -55,6 +55,51 @@ userRoutes.post('/login', (req: Request, res: Response) => {
     });
 });
 
+userRoutes.post('/login/admin', (req: Request, res: Response) => {
+
+    // extraer la info del post
+    const body = req.body;
+
+    User.findOne({ email: body.email }, (err: any, userDB: Iuser) => {
+
+        if (err) throw err;
+
+        if (!userDB) {
+
+            return res.json({
+                ok: false,
+                mensaje: 'Usuario/contraseña incorrecta'
+            });
+        }
+
+        if (userDB.comparePassword(body.password) && userDB.role === 'admin') {
+
+            const tokenUser = Token.getJWebToken({
+                _id: userDB._id,
+                name: userDB.name,
+                email: userDB.email,
+                role: userDB.role,
+                avatar: userDB.avatar
+            });
+
+            res.json({
+                ok: true,
+                id: userDB._id,
+                token: tokenUser,
+                role: req.body.role,
+                user: userDB
+            });
+
+        } else {
+
+            return res.json({
+                ok: false,
+                mensaje: 'Usuario/contraseña incorrecta ***'
+            });
+        }
+    });
+});
+
 
 // Crear un usuario
 userRoutes.post('/create', (req: Request, res: Response) => {
