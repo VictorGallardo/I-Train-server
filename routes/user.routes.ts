@@ -33,6 +33,7 @@ userRoutes.post('/login', (req: Request, res: Response) => {
                 _id: userDB._id,
                 name: userDB.name,
                 email: userDB.email,
+                role: req.body.role,
                 avatar: userDB.avatar
             });
 
@@ -40,6 +41,7 @@ userRoutes.post('/login', (req: Request, res: Response) => {
                 ok: true,
                 id: userDB._id,
                 token: tokenUser,
+                role: req.body.role,
                 user: userDB
             });
 
