@@ -33,7 +33,7 @@ userRoutes.post('/login', (req: Request, res: Response) => {
                 _id: userDB._id,
                 name: userDB.name,
                 email: userDB.email,
-                role: req.body.role,
+                role: userDB.role,
                 avatar: userDB.avatar
             });
 
