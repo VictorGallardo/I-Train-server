@@ -86,7 +86,7 @@ userRoutes.post('/login/admin', (req: Request, res: Response) => {
                 ok: true,
                 id: userDB._id,
                 token: tokenUser,
-                role: req.body.role,
+                role: userDB.role,
                 user: userDB
             });
 
@@ -182,6 +182,7 @@ userRoutes.post('/update', validateToken, (req: any, res: Response) => {
 // Actualizar usuarios en I-ADMIN
 
 userRoutes.post('/update/:userid', [validateToken], (req: any, res: Response) => {
+
 
     const user = {
         name: req.body.name || req.user.name,
