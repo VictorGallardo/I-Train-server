@@ -16,11 +16,11 @@ const eventSchema = new Schema({
     },
 
     startTime: {
-        type: String
+        type: Date
     },
 
     endTime: {
-        type: String
+        type: Date
     },
 
     user: {
@@ -36,8 +36,8 @@ interface IEvent extends Document {
 
     title: string;
     description: string;
-    startTime: string;
-    endTime: string;
+    startTime: Date;
+    endTime: Date;
     user: string;
 
 }
