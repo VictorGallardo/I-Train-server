@@ -78,7 +78,7 @@ eventRoutes.delete('/delete/:eventid', (req: any, res: Response) => {
 });
 
 
-// Actualizar items
+// Actualizar Eventos
 
 eventRoutes.post('/update/:eventid', (req: any, res: Response) => {
 
@@ -109,5 +109,25 @@ eventRoutes.post('/update/:eventid', (req: any, res: Response) => {
     });
 
 });
+
+
+// Obtener todos los eventos
+
+eventRoutes.get('/all', [validateToken], async (req: any, res: Response) => {
+
+    const events = await Event
+        .find()
+        .sort({ _id: -1 })
+        .exec()
+
+    // Respuesta    
+    res.json({
+        ok: true,
+        events: events,
+
+    });
+
+});
+
 
 export default eventRoutes;
